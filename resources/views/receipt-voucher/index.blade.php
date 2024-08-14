@@ -51,7 +51,7 @@
                             <td class="name">{{$rece->vat_amount}}</td>
                             <td class="name">{{$rece->total_amount}}</td>
                            
-                            <td><form action="{{ route('receipt-voucher.destroy',$pay->id) }}" method="post">
+                            <td><form action="{{ route('receipt-voucher.destroy',$rece->id) }}" method="post">
                            
                             @csrf
                             @method('DELETE')

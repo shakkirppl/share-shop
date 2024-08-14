@@ -72,7 +72,7 @@
               <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="{{URL::to('receipt-voucher-report')}}">Receipt Voucher</a></li>
               <li class="nav-item"> <a class="nav-link" href="{{URL::to('payment-voucher-report')}}">Payment Voucher</a></li>
-
+              <li class="nav-item"> <a class="nav-link" href="{{URL::to('monthly-share-report')}}">Monthly Report</a></li>
               </ul>
             </div>
      

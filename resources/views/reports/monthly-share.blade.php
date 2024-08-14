@@ -9,24 +9,27 @@
                     
                      <div class="row">
                     <div class="col-6 col-md-6 col-sm-6 col-xs-12" >
-                             <h4 class="card-title">Payment Voucher Report</h4>
+                             <h4 class="card-title">Monthly Share Report</h4>
                     </div>
                    
                        
                    
                 </div>
-                <form class="form-sample"  action="{{url('payment-voucher-report')}}" method="get" >
+                <form class="form-sample"  action="{{url('monthly-share-report')}}" method="get" >
                           {{csrf_field()}}
                     <div class="row">
                      
                      
 
                       <div class="col-md-4 col-sm-6 col-xs-12 mt-2">
-                        <input type="date" name="from_date" class="form-control">
+                      <select class="form-control" name="month" id="month">
+                    <option>Select Month</option>
+                    @foreach($months as $key => $month)
+                 <option value="{{ $month }}">{{ $month }}</option>
+                    @endforeach
+                    </select>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12 mt-2">
-                        <input type="date" name="to_date" class="form-control">
-                    </div>
+                   
                     <div class="col-md-2 col-sm-6 col-xs-12 mt-2">
                     <div class="submitbutton">
                     <button type="submit" class="btn btn-primary mb-2 submit">Get
@@ -51,27 +54,45 @@
                     <table class="table table-hover" id="value-table">
                       <thead>
                         <tr>
-                          <th>No</th>
-                          <th>Date</th>
-                          <th>Customer</th>
-                          <th>Amount</th>
-                          <th>Vat</th>
-                          <th>Total</th>
+                          <th>Month</th>
+                          <th>Income</th>
+                          <th>Expense</th>
+                          <th>Profit</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
-                      @if(count($results))
-                        @foreach($results as $key=>$data)
+                   <tr>
+                    <td>{{$month}}</td>
+                    <td>{{$income}}</td>
+                    <td>{{$expense}}</td>
+                    <td>{{$profit}}</td>
+                   </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+
+                  <div class="table-responsive">
+                    <table class="table table-hover" id="value-table">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Partner</th>
+                          <th>Percentage</th>
+                          <th>Profit</th>
+                        
+                        </tr>
+                      </thead>
+                      <tbody>
+                      @if(count($partnerStore))
+                        @foreach($partnerStore as $key=>$partnrstore)
                         <tr id="">
-                            <td>{{$data->invoice_no}}</td>
-                            <td class="name">{{$data->in_date}}</td>
-                            <td class="name">@foreach($data->expense as $exp){{$exp->name}}@endforeach</td>
-                            <td class="name">{{$data->amount}}</td>
-                            <td class="name">{{$data->vat_amount}}</td>
-                            <td class="name">{{$data->total_amount}}</td>
-                          
-                              </form>
-                            </td>
+                            <td>{{$key+1}}</td>
+                            <td class="name">@foreach($partnrstore->partner as $part){{$part->name}}@endforeach</td>
+                            <td class="name">{{$partnrstore->percentage}}</td>
+                            <td class="name">{{($profit*$partnrstore->percentage)/100}}</td>
+                   
                       </tr>
                         @endforeach
                         @else

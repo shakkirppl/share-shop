@@ -4,154 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\DayClose;
 use App\Models\Store;
-use App\Models\ExternalCustomer;
-use App\Models\ExternalExactCustomer;
-use App\Models\ExternalExactProduct;
-use App\Models\ExternalProduct;
 use DB;
-use App\Models\Customer;
+use App\Models\PaymentVoucher;
+use App\Models\ReceiptVoucher;
+use App\Models\PartnerStore;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Artisan;
+use Illuminate\Support\Collection;
 class MainController extends Controller
 {
     //
     
-    public function royal(Request $request)
+    
+  
+ public function monthly_share_report(Request $request)
     {
         
         try {
-          $royal=DB::table('royals')->get();
-          foreach($royal as $roy)
-          {
-          $customer=Customer::find($roy->customer_id);
-          $customer->route_id=$roy->Route_id;
-          $customer->province_id=$roy->Province_id;
-          $customer->save();
+          $store=Store::find(Auth::user()->store_id);
 
+          $fromDate =$store->created_at;
+          $toDate = Carbon::now();
+          $start = Carbon::parse($fromDate)->startOfMonth();
+          $end = Carbon::parse($toDate)->endOfMonth();
+      
+          $months = new Collection();
+      
+          while ($start->lte($end)) {
+              $months->push($start->format('F Y')); // e.g., "January 2024"
+              $start->addMonth();
           }
-      return 'complete';
-         
+          $month = $request->month;
 
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
-    public function process_pending_data(Request $request)
-    {
-        
-        try {
-          $store_id=Auth::user()->store_id;
-          $store=Store::find($store_id);
-          $customer_count=ExternalCustomer::UnSynchData()->Store($store->code)->count('id');
-          $product_count=ExternalProduct::UnSynchData()->Store($store->code)->count('id');
+// Get the start date of the month
+      $startDate = Carbon::parse($month)->startOfMonth()->toDateString();
 
-          $exact_customer_count=ExternalExactCustomer::UnSynchData()->Store($store->code)->count('id');
-          $exact_product_count=ExternalExactProduct::UnSynchData()->Store($store->code)->count('id');
-            return view('aprovel-pending.external-data',['customer_count'=>$customer_count,'product_count'=>$product_count,'exact_customer_count'=>$exact_customer_count,'store_id'=>$store_id,'exact_product_count'=>$exact_product_count]);
+// Get the end date of the month
+      $endDate = Carbon::parse($month)->endOfMonth()->toDateString();
+      $income=ReceiptVoucher::WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
+      $expense=PaymentVoucher::WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
+      $profit=$income-$expense;
+      $partnerStore=PartnerStore::with('partner')->where('store_id',$store->id)->get();
+      return view('reports.monthly-share',['months'=>$months,'income'=>$income,'expense'=>$expense,'profit'=>$profit,'month'=>$month,'partnerStore'=>$partnerStore]);
 
     } catch (\Exception $e) {
         return $e->getMessage();
       }
     }
     
-    public function customer_process(Request $request)
-    {
-        
-        try {
-        
-          $customer=ExternalCustomer::UnSync_Data_to_Customer();
-        
-            return back();
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
-    public function product_process(Request $request)
-    {
-        
-        try {
-        
-         
-          $product=ExternalProduct::UnSync_Data_to_Product();
-            return back();
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
-    public function customer_process_xact(Request $request)
-    {
-        
-        try {
-        
-          Artisan::call('command:get-customers');
-        
-            return back();
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
-    public function product_process_xact(Request $request)
-    {
-        
-        try {
-        
-          Artisan::call('command:get-product');
-        
-            return back();
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
- public function pending_dayclose_aprovel(Request $request)
-    {
-        
-        try {
-          $results = DayClose::with('van','user')->Store()->Pending()->orderBy('id','desc')->get();
-            return view('aprovel-pending.dayclose',['results'=>$results]);
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
     
-     public function dayclose_view($id)
-    {
-        
-        try {
-          $results = DayClose::with('van','user')->Store()->Pending()->orderBy('id','desc')->find($id);
-            return view('aprovel-pending.dayclose-view',['results'=>$results]);
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
-         public function day_close_update(Request $request)
-    {
-        
-        try {
-              DB::transaction(function () use ($request) {
-                 
-            $results = DayClose::find($request->id);
-            $results->approvel=1;
-            $results->save();
-
-        }); 
-        
-         return redirect('pending-dayclose-aprovel');
-
-    } catch (\Exception $e) {
-        return $e->getMessage();
-      }
-    }
-    
-     
     
                    
       

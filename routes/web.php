@@ -8,7 +8,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 
 
-
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\MainController;
@@ -62,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('income-master', IncomeController::class);
     Route::resource('receipt-voucher', ReceiptVoucherController::class);
     Route::get('receipt-voucher-report', [ReceiptVoucherController::class,'receipt_voucher_report']);
-    
+    Route::get('monthly-share-report', [MainController::class,'monthly_share_report']);
     
     
 });
