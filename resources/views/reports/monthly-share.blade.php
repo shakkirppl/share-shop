@@ -51,14 +51,14 @@
                 
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-hover" id="value-table">
+                    <table class="table table-hover" >
                       <thead>
                         <tr>
                           <th>Month</th>
                           <th>Income</th>
                           <th>Expense</th>
                           <th>Profit</th>
-                          
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -67,6 +67,7 @@
                     <td>{{$income}}</td>
                     <td>{{$expense}}</td>
                     <td>{{$profit}}</td>
+                    <td> <a class="btn btn-minier btn-warning btn-edit" href="{{ route('monthly-report-detail/',$month) }}">View Detail</i></td>
                    </tr>
                       </tbody>
                     </table>

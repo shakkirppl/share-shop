@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('receipt-voucher', ReceiptVoucherController::class);
     Route::get('receipt-voucher-report', [ReceiptVoucherController::class,'receipt_voucher_report']);
     Route::get('monthly-share-report', [MainController::class,'monthly_share_report']);
+    Route::get('monthly-report-detail/{id}', [MainController::class,'monthly_report_detail'])->name('monthly-report-detail/');
     
     
 });
