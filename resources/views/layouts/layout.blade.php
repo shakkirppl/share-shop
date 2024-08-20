@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Mobiz Sales</title>
+  <title>Ziya</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{url('admin/vendors/feather/feather.css')}}">
   <link rel="stylesheet" href="{{url('admin/vendors/ti-icons/css/themify-icons.css')}}">
@@ -26,7 +26,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{url('admin/css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{url('admin/images/favicon.png')}}" />
+  <link rel="shortcut icon" href="{{url('admin/images/favicon.ico')}}" />
 </head>
 <body>
   <div class="container-scroller">

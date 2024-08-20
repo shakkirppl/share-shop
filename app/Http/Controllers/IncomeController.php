@@ -65,7 +65,7 @@ class IncomeController extends Controller
         try {
 
             DB::transaction(function () use ($request,$incomeMaster) {
-                ExpenseMaster::update_expense($request,$incomeMaster);
+                IncomeMaster::update_income($request,$incomeMaster);
         }); 
        return redirect()->route('income-master.index')->with('Success',' updated successfully');
     } catch (\Exception $e) {

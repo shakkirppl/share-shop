@@ -43,8 +43,10 @@ class MainController extends Controller
 
 // Get the end date of the month
       $endDate = Carbon::parse($month)->endOfMonth()->toDateString();
-      $income=ReceiptVoucher::Store()->WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
-      $expense=PaymentVoucher::Store()->WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
+      $income = ReceiptVoucher::where('store_id',Auth::user()->store_id)
+      ->whereBetween('in_date', [$startDate, $endDate])
+      ->sum('total_amount');
+      $expense=PaymentVoucher::where('store_id',Auth::user()->store_id)->WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
       $profit=$income-$expense;
       $partnerStore=PartnerStore::with('partner')->where('store_id',$store->id)->get();
       return view('reports.monthly-share',['months'=>$months,'income'=>$income,'expense'=>$expense,'profit'=>$profit,'month'=>$month,'partnerStore'=>$partnerStore]);
