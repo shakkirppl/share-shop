@@ -25,7 +25,8 @@ class MainController extends Controller
         try {
           $store=Store::find(Auth::user()->store_id);
 
-          $fromDate =$store->created_at;
+          // $fromDate =$store->created_at;
+          $fromDate ='2024-08-08 02:00:22';
           $toDate = Carbon::now();
           $start = Carbon::parse($fromDate)->startOfMonth();
           $end = Carbon::parse($toDate)->endOfMonth();

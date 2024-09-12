@@ -35,6 +35,7 @@
                           <th>No</th>
                           <th>Date</th>
                           <th>Expense</th>
+                          <th>Description</th>
                           <th>Amount</th>
                           <th>Vat</th>
                           <th>Total Amount</th>
@@ -47,6 +48,7 @@
                             <td>{{1+$key}}</td>
                             <td class="name">{{$pay->in_date}}</td>
                             <td class="name"> @foreach($pay->expense as $exp){{$exp->name}} @endforeach</td>
+                            <td>{{$pay->description}}</td>
                             <td class="name">{{$pay->amount}}</td>
                             <td class="name">{{$pay->vat_amount}}</td>
                             <td class="name">{{$pay->total_amount}}</td>
