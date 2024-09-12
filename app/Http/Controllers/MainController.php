@@ -50,7 +50,7 @@ class MainController extends Controller
       $expense=PaymentVoucher::where('store_id',Auth::user()->store_id)->WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
       $profit=$income-$expense;
       $partnerStore=PartnerStore::with('partner')->where('store_id',$store->id)->get();
-      return view('reports.monthly-share',['months'=>$months,'income'=>$income,'expense'=>$expense,'profit'=>$profit,'month'=>$month,'partnerStore'=>$partnerStore]);
+      return view('reports.monthly-share',['months'=>$months,'income'=>$income,'expense'=>$expense,'profit'=>$profit,'selectmonth'=>$month,'partnerStore'=>$partnerStore]);
 
     } catch (\Exception $e) {
         return $e->getMessage();

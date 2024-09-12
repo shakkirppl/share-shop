@@ -72,7 +72,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label required">Description </label>
                           <div class="col-sm-9">
-                          <textarea class="form-control" name="w3review" rows="4" cols="50"> </textarea>
+                          <textarea class="form-control" name="description" rows="4" cols="50"> </textarea>
                           </div>
                         </div>
                       </div>
