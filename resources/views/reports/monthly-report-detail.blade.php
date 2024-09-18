@@ -28,6 +28,7 @@
                                             <th>No</th>
                                             <th>Date</th>
                                             <th>Expense</th>
+                                            <th>Description</th>
                                             <th>Amount</th>
                                             <th>Vat</th>
                                             <th>Total Amount</th>
@@ -44,6 +45,7 @@
                                                         {{ $exp->name }}
                                                     @endforeach
                                                 </td>
+                                                <td>{{ $pay->description }}</td>
                                                 <td>{{ $pay->amount }}</td>
                                                 <td>{{ $pay->vat_amount }}</td>
                                                 <td>{{ $pay->total_amount }}</td>
@@ -68,6 +70,7 @@
                                             <th>No</th>
                                             <th>Date</th>
                                             <th>Expense</th>
+                                            <th>Description</th>
                                             <th>Amount</th>
                                             <th>Vat</th>
                                             <th>Total Amount</th>
@@ -85,6 +88,7 @@
                                                         {{ $res->name }}
                                                     @endforeach
                                                 </td>
+                                                <td>{{ $pay->description }}</td>
                                                 <td>{{ $rece->amount }}</td>
                                                 <td>{{ $rece->vat_amount }}</td>
                                                 <td>{{ $rece->total_amount }}</td>

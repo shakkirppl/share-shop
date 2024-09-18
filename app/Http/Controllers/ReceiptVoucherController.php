@@ -45,29 +45,31 @@ class ReceiptVoucherController extends Controller
       }     
     
     }
-    // public function edit(Category $category) 
-    // {
+    public function edit(ReceiptVoucher $receiptVoucher) 
+    {
   
-    //     try {
-    //         return view('category.edit', [
-    //             'category' => $category
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return $e->getMessage();
-    //       }
-    // }
-    // public function update(Request $request,Category $category) {
+        try {
+            $receipt=IncomeMaster::Store()->get();
+            return view('receipt-voucher.edit', [
+                'receiptVoucher' => $receiptVoucher,
+                'receipt'=>$receipt
+            ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+          }
+    }
+    public function update(Request $request,ReceiptVoucher $receiptVoucher) {
    
-    //     try {
+        try {
            
-    //         DB::transaction(function () use ($request,$category) {
-    //             Category::update_category($request,$category);
-    //     }); 
-    //    return redirect()->route('category.index')->with('success','Category updated successfully');
-    // } catch (\Exception $e) {
-    //     return $e->getMessage();
-    //   }    
-    // }  
+            DB::transaction(function () use ($request,$receiptVoucher) {
+                ReceiptVoucher::update_receipt($request,$receiptVoucher);
+        }); 
+       return redirect()->route('receipt-voucher.index')->with('success','Receipt Voucher updated successfully');
+    } catch (\Exception $e) {
+        return $e->getMessage();
+      }    
+    }  
     public function destroy(ReceiptVoucher $receipt_voucher) 
     {
        

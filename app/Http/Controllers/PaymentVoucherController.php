@@ -45,29 +45,31 @@ class PaymentVoucherController extends Controller
       }     
     
     }
-    // public function edit(Category $category) 
-    // {
+    public function edit(PaymentVoucher $paymentVoucher) 
+    {
   
-    //     try {
-    //         return view('category.edit', [
-    //             'category' => $category
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return $e->getMessage();
-    //       }
-    // }
-    // public function update(Request $request,Category $category) {
+        try {
+            $expense=ExpenseMaster::Store()->get();
+            return view('payment-voucher.edit', [
+                'paymentVoucher' => $paymentVoucher,
+                'expense'=>$expense
+            ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+          }
+    }
+    public function update(Request $request,PaymentVoucher $paymentVoucher) {
    
-    //     try {
+        try {
            
-    //         DB::transaction(function () use ($request,$category) {
-    //             Category::update_category($request,$category);
-    //     }); 
-    //    return redirect()->route('category.index')->with('success','Category updated successfully');
-    // } catch (\Exception $e) {
-    //     return $e->getMessage();
-    //   }    
-    // }  
+            DB::transaction(function () use ($request,$paymentVoucher) {
+                PaymentVoucher::update_payment($request,$paymentVoucher);
+        }); 
+       return redirect()->route('payment-voucher.index')->with('success','Payment Voucher updated successfully');
+    } catch (\Exception $e) {
+        return $e->getMessage();
+      }    
+    }  
     public function destroy(PaymentVoucher $payment_voucher) 
     {
        

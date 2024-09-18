@@ -35,6 +35,7 @@
                           <th>No</th>
                           <th>Date</th>
                           <th>Expense</th>
+                          <th>Description</th>
                           <th>Amount</th>
                           <th>Vat</th>
                           <th>Total Amount</th>
@@ -47,12 +48,13 @@
                             <td>{{1+$key}}</td>
                             <td class="name">{{$rece->in_date}}</td>
                             <td class="name"> @foreach($rece->receipt as $res){{$res->name}} @endforeach</td>
+                            <td>{{$rece->description}}</td>
                             <td class="name">{{$rece->amount}}</td>
                             <td class="name">{{$rece->vat_amount}}</td>
                             <td class="name">{{$rece->total_amount}}</td>
                            
                             <td><form action="{{ route('receipt-voucher.destroy',$rece->id) }}" method="post">
-                           
+                            <a class="btn btn-minier btn-warning btn-edit" href="{{ route('receipt-voucher.edit',$rece->id) }}"><i class="fa fa-edit"></i></a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>

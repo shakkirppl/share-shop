@@ -25,6 +25,12 @@ class PaymentVoucher extends Model
         InvoiceNumber::updateinvoiceNumber('payment_voucher',Auth::user()->store_id);
 
     }
+    public static function update_payment($request,$paymentVoucher)
+    {
+         $request['store_id']=Auth::user()->store_id;
+         $request['user_id']=Auth::user()->id;
+        $paymentVoucher->update($request->all());
+    }
     public function expense(){
        
         return $this->hasMany('App\Models\ExpenseMaster','id','account_id');
