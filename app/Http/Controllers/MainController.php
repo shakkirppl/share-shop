@@ -21,12 +21,31 @@ class MainController extends Controller
   
  public function monthly_share_report(Request $request)
     {
-        
+        // return $request->all();
         try {
           $store=Store::find(Auth::user()->store_id);
 
-          // $fromDate =$store->created_at;
-          $fromDate ='2024-08-08 02:00:22';
+        //   $fromDate =$store->created_at;
+        $receipt = ReceiptVoucher::where('store_id',Auth::user()->store_id)->orderBy('id','ASC')->first();
+        $payment=PaymentVoucher::where('store_id',Auth::user()->store_id)->orderBy('id','ASC')->first();
+        if ($receipt && $payment) {
+    // Compare dates if both records are found
+    if ($receipt->in_date > $payment->in_date) {
+        $fromDate = $receipt->in_date;
+    } else {
+        $fromDate = $payment->in_date;
+    }
+} elseif ($receipt) {
+    // If only receipt is found
+    $fromDate = $receipt->in_date;
+} elseif ($payment) {
+    // If only payment is found
+    $fromDate = $payment->in_date;
+} else {
+    // Handle the case where neither receipt nor payment is found
+    $fromDate =  Carbon::now(); // Set a default value or handle it as needed
+}
+       
           $toDate = Carbon::now();
           $start = Carbon::parse($fromDate)->startOfMonth();
           $end = Carbon::parse($toDate)->endOfMonth();
@@ -50,6 +69,7 @@ class MainController extends Controller
       $expense=PaymentVoucher::where('store_id',Auth::user()->store_id)->WhereBetween('in_date',[$startDate,$endDate])->sum('total_amount');
       $profit=$income-$expense;
       $partnerStore=PartnerStore::with('partner')->where('store_id',$store->id)->get();
+      
       return view('reports.monthly-share',['months'=>$months,'income'=>$income,'expense'=>$expense,'profit'=>$profit,'selectmonth'=>$month,'partnerStore'=>$partnerStore]);
 
     } catch (\Exception $e) {

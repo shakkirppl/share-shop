@@ -25,7 +25,7 @@ class ReceiptVoucher extends Model
         InvoiceNumber::updateinvoiceNumber('receipt_voucher',Auth::user()->store_id);
 
     }
-    public static function update_receipt($request,$receiptVoucher)
+     public static function update_receipt($request,$receiptVoucher)
     {
          $request['store_id']=Auth::user()->store_id;
          $request['user_id']=Auth::user()->id;

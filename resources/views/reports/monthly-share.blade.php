@@ -67,7 +67,7 @@
                     <td>{{$income}}</td>
                     <td>{{$expense}}</td>
                     <td>{{$profit}}</td>
-                    <td> @if($selectmonth) <a class="btn btn-minier btn-warning btn-edit" href="{{ route('monthly-report-detail/',$selectmonth) }}">View Detail</i>@endif</td>
+                    <td>@if($selectmonth) <a class="btn btn-minier btn-warning btn-edit" href="{{ route('monthly-report-detail/',$selectmonth) }}">View Detail</i>@endif</td>
                    </tr>
                       </tbody>
                     </table>

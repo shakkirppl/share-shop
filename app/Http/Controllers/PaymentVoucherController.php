@@ -45,7 +45,7 @@ class PaymentVoucherController extends Controller
       }     
     
     }
-    public function edit(PaymentVoucher $paymentVoucher) 
+   public function edit(PaymentVoucher $paymentVoucher) 
     {
   
         try {

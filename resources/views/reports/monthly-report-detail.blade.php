@@ -45,7 +45,7 @@
                                                         {{ $exp->name }}
                                                     @endforeach
                                                 </td>
-                                                <td>{{ $pay->description }}</td>
+                                                   <td>{{$pay->description}}</td>
                                                 <td>{{ $pay->amount }}</td>
                                                 <td>{{ $pay->vat_amount }}</td>
                                                 <td>{{ $pay->total_amount }}</td>
@@ -88,7 +88,7 @@
                                                         {{ $res->name }}
                                                     @endforeach
                                                 </td>
-                                                <td>{{ $pay->description }}</td>
+                                                 <td>{{$rece->description}}</td>
                                                 <td>{{ $rece->amount }}</td>
                                                 <td>{{ $rece->vat_amount }}</td>
                                                 <td>{{ $rece->total_amount }}</td>

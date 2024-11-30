@@ -35,7 +35,7 @@
                           <th>No</th>
                           <th>Date</th>
                           <th>Expense</th>
-                          <th>Description</th>
+                            <th>Description</th>
                           <th>Amount</th>
                           <th>Vat</th>
                           <th>Total Amount</th>
